@@ -1,46 +1,29 @@
-import { CartProvider } from "components/cart/cart-context";
-import { Navbar } from "components/layout/navbar";
-import { WelcomeToast } from "components/welcome-toast";
 import { GeistSans } from "geist/font/sans";
-import { getCart } from "lib/shopify";
 import { ReactNode } from "react";
-import { Toaster } from "sonner";
+import { SiteHeader } from "components/site-header";
 import "./globals.css";
 import { baseUrl } from "lib/utils";
-
-const { SITE_NAME } = process.env;
 
 export const metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: SITE_NAME!,
-    template: `%s | ${SITE_NAME}`,
+    default: "Shadab Video Archive",
+    template: "%s | Shadab Video Archive",
   },
+  description:
+    "Raw video documentation connected to verified reporting at ShadabChow.com.",
   robots: {
     follow: true,
     index: true,
   },
 };
 
-export default async function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  // Don't await the fetch, pass the Promise to the context provider
-  const cart = getCart();
-
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={GeistSans.variable}>
-      <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
-        <CartProvider cartPromise={cart}>
-          <Navbar />
-          <main>
-            {children}
-            <Toaster closeButton />
-            <WelcomeToast />
-          </main>
-        </CartProvider>
+      <body className="bg-neutral-50 text-black dark:bg-neutral-950 dark:text-white">
+        <SiteHeader />
+        <main>{children}</main>
       </body>
     </html>
   );
