@@ -1,9 +1,12 @@
-import OpengraphImage from "components/opengraph-image";
-import { getPage } from "lib/shopify";
+import OpengraphImage from 'components/opengraph-image';
+import { ImageResponse } from 'next/og';
 
-export default async function Image({ params }: { params: { page: string } }) {
-  const page = await getPage(params.page);
-  const title = page.seo?.title || page.title;
+export const dynamicParams = false;
 
-  return await OpengraphImage({ title });
+export async function generateStaticParams() {
+  return [{ page: '_placeholder' }];
+}
+
+export default async function Image(): Promise<ImageResponse> {
+  return OpengraphImage();
 }

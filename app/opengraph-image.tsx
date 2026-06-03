@@ -1,5 +1,2 @@
-import OpengraphImage from "components/opengraph-image";
-
-export default async function Image() {
-  return await OpengraphImage();
-}
+export const dynamic = 'force-static';
+export { default } from 'components/opengraph-image';

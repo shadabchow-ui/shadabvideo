@@ -3,37 +3,22 @@ import { rawVideos } from 'lib/videos';
 import { MAIN_SITE_URL } from 'lib/site';
 
 export const metadata = {
-  title: 'Shadab Raw Video Archive',
-  description: 'Unedited source footage accompanying investigative reporting on ShadabChow.com.',
-  openGraph: {
-    type: 'website',
-  },
+  title: 'All Videos',
+  description: 'Full list of raw footage in the Shadab Video Archive.',
 };
 
-export default function HomePage() {
+export default function VideosPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="mb-4 text-3xl font-bold">Raw Video Archive</h1>
-      <p className="mb-6 text-neutral-600 dark:text-neutral-400">
-        This archive hosts unedited source footage accompanying investigative articles on{' '}
-        <a
-          href={MAIN_SITE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:text-black dark:hover:text-white"
-        >
-          ShadabChow.com
-        </a>
-        . All videos carry a viewer-discretion notice.
-      </p>
+      <h1 className="mb-6 text-2xl font-bold">All Videos</h1>
 
       {rawVideos.length === 0 ? (
         <p className="rounded border border-neutral-200 p-6 text-sm text-neutral-500 dark:border-neutral-700">
-          No videos have been published yet. Check back soon or visit{' '}
+          No videos published yet. Read the reporting at{' '}
           <a href={MAIN_SITE_URL} target="_blank" rel="noopener noreferrer" className="underline">
             ShadabChow.com
-          </a>{' '}
-          for the latest reporting.
+          </a>
+          .
         </p>
       ) : (
         <ul className="divide-y divide-neutral-200 dark:divide-neutral-700">
@@ -42,6 +27,17 @@ export default function HomePage() {
               <Link href={`/videos/${v.slug}`} className="text-lg font-medium hover:underline">
                 {v.title}
               </Link>
+              <p className="mt-1 text-sm text-neutral-500">
+                Article:{' '}
+                <a
+                  href={v.articleUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-black dark:hover:text-white"
+                >
+                  {v.articleTitle}
+                </a>
+              </p>
             </li>
           ))}
         </ul>

@@ -1,13 +1,12 @@
-import OpengraphImage from "components/opengraph-image";
-import { getCollection } from "lib/shopify";
+import OpengraphImage from 'components/opengraph-image';
+import { ImageResponse } from 'next/og';
 
-export default async function Image({
-  params,
-}: {
-  params: { collection: string };
-}) {
-  const collection = await getCollection(params.collection);
-  const title = collection?.seo?.title || collection?.title;
+export const dynamicParams = false;
 
-  return await OpengraphImage({ title });
+export async function generateStaticParams() {
+  return [{ collection: '_placeholder' }];
+}
+
+export default async function Image(): Promise<ImageResponse> {
+  return OpengraphImage();
 }
